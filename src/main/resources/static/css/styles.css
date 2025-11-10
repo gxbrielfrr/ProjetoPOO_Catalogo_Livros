@@ -1,0 +1,287 @@
+/* Reset básico e fontes */
+:root {
+    --cor-primaria: #007bff;
+    --cor-fundo: #f8f9fa;
+    --cor-texto: #333;
+    --cor-branca: #ffffff;
+    --sombra-card: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+/* --- Menu / Header --- */
+.menu {
+    background-color: var(--cor-branca);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.menu .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.menu ul li {
+    margin-left: 1.5rem;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.menu ul li a:hover {
+    color: var(--cor-primaria);
+}
+
+.btn-novo {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branca) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-novo:hover {
+    background-color: #0056b3;
+    color: var(--cor-branca) !important;
+}
+
+/* --- Conteúdo Principal --- */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 5%;
+}
+
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: var(--cor-branca);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.content h2 {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+/* Grid de Livros */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.book-card {
+    background-color: var(--cor-branca);
+    border-radius: 8px;
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--cor-texto);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.book-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.book-card h3 {
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card p {
+    font-size: 0.9rem;
+    color: #666;
+    padding: 0 1rem;
+}
+
+.book-card .rating {
+    padding: 0.5rem 1rem 1rem;
+    font-size: 1.1rem;
+    color: #f39c12;
+}
+
+/* --- Formulário --- */
+.form-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    background-color: var(--cor-branca);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--sombra-card);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--cor-branca);
+    background-color: var(--cor-primaria);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    border-top: 1px solid #eee;
+    color: #888;
+}
+
+/* --- Estilos da Página de Detalhes --- */
+.detalhes-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: var(--cor-branca);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--sombra-card);
+    display: flex; /* Flexbox para layout lado a lado */
+    gap: 2rem; /* Espaço entre a imagem e o texto */
+}
+
+.detalhes-capa {
+    flex-basis: 300px; /* Largura fixa para a capa */
+    flex-shrink: 0;
+}
+
+.detalhes-capa img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.detalhes-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.detalhes-info .autor {
+    font-size: 1.25rem;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.detalhes-info .rating {
+    font-size: 1.5rem;
+    color: #f39c12;
+    margin-bottom: 1.5rem;
+}
+
+.detalhes-info .resenha-titulo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+
+.detalhes-info .resenha-texto {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.detalhes-botoes {
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-editar, .btn-excluir {
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #ffc107; /* Amarelo */
+    color: #333;
+}
+.btn-editar:hover {
+    background-color: #e0a800;
+}
+
+.btn-excluir {
+    background-color: #dc3545; /* Vermelho */
+    color: var(--cor-branca);
+}
+.btn-excluir:hover {
+    background-color: #c82333;
+}

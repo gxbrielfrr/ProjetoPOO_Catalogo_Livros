@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Lista de Livros</title>
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+<header>
+    <nav class="menu">
+        <a th:href="@{/}" class="logo">Catálogo📚</a>
+        <ul>
+            <li><a th:href="@{/}">Início</a></li>
+            <li><a th:href="@{/lista}" class="ativo">Minha Lista</a></li>
+            <li><a th:href="@{/adicionar}" class="btn-novo">Adicionar Livro</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="content">
+        <h2>Minha Lista Completa</h2>
+
+        <div id="lista-completa-container" class="book-grid">
+            <p>Carregando lista completa...</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Meu Catálogo de Livros</p>
+</footer>
+</body>
+</html>
