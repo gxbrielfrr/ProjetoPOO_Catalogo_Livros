@@ -51,9 +51,9 @@ async function carregarLivrosRecentes(container) {
     try {
         // MOCK temporário
         const livros = [
-            { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaFilme1.jpg', nota: 4 },
-            { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaFilme2.jpg', nota: 5 },
-            { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaFilme3.jpg', nota: 5 }
+            { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaLivro1.jpg', nota: 4 },
+            { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaLivro2.jpg', nota: 5 },
+            { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaLivro3.jpg', nota: 5 }
         ];
         
         container.innerHTML = ''; 
@@ -74,9 +74,9 @@ async function carregarListaCompleta(container) {
 
     try {
         const livros = [
-    { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaFilme1.jpg', nota: 4 },
-    { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaFilme2.jpg', nota: 5 },
-    { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaFilme3.jpg', nota: 5 }
+    { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaLivro1.jpg', nota: 4 },
+    { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaLivro2.jpg', nota: 5 },
+    { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaLivro3.jpg', nota: 5 }
 ];
 
         
@@ -118,9 +118,9 @@ async function carregarDetalhesDoLivro(container) {
     }
 
     const livros = [
-        { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaFilme1.jpg', nota: 4, resenha: 'Um épico da ficção científica moderna.' },
-        { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaFilme2.jpg', nota: 5, resenha: 'Um clássico imortal de política e ecologia.' },
-        { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaFilme3.jpg', nota: 5, resenha: 'Uma jornada fantástica cheia de magia e monstros.' }
+        { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaLivro1.jpg', nota: 4, resenha: 'Um épico da ficção científica moderna.' },
+        { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaLivro2.jpg', nota: 5, resenha: 'Um clássico imortal de política e ecologia.' },
+        { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaLivro3.jpg', nota: 5, resenha: 'Uma jornada fantástica cheia de magia e monstros.' }
     ];
 
     const livro = livros.find(l => l.id == id);
