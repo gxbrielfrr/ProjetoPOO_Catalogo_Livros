@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Catálogo de Livros</title>
-
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script th:src="@{/js/app.js}" defer></script>
 </head>
 <body>
+
+<div class="liquid-background">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
 <header>
     <nav class="menu">
-        <a th:href="@{/}" class="logo">Catálogo📚</a>
+        <a th:href="@{/}" class="logo">Catálogo</a>
         <ul>
             <li><a th:href="@{/}">Início</a></li>
             <li><a th:href="@{/lista}">Minha Lista</a></li>
-            <li><a th:href="@{/adicionar}" class="btn-novo">Adicionar Livro</a></li>
+            <li><a th:href="@{/adicionar}" class="btn-novo">Adicionar</a></li>
         </ul>
     </nav>
 </header>
 
 <main>
     <section class="hero">
-        <h1>Bem-vindo ao seu Catálogo Pessoal</h1>
-        <p>Organize e avalie os livros que você já leu.</p>
+        <h1>Bem-vindo</h1>
+        <p>Seu espaço pessoal de leitura, reinventado.</p>
     </section>
 
     <section class="content">
@@ -36,7 +42,7 @@
 </main>
 
 <footer>
-    <p>&copy; 2025 Meu Catálogo de Livros</p>
+    <p>&copy; 2025 Catálogo de Livros - por Felipe Massola e João Ferreira</p>
 </footer>
 </body>
 </html>
