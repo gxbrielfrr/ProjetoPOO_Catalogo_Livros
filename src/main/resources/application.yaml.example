@@ -1,0 +1,15 @@
+server:
+  port: 8080 
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/catalogodb 
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  sql:
+    init:
+      schema-locations: classpath:/schema-catalogodb-sql.sql
+      mode: always
+      platform: postgres

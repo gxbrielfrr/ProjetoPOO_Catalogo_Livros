@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: projetocatalogo
+    env: docker
+    plan: free
+    healthCheckPath: /
+    autoDeploy: true
+    dockerCommand: ""
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://dpg-d4lriuc9c44c73fmeb30-a.oregon-postgres.render.com:5432/catalogodb_cqst
+      - key: SPRING_DATASOURCE_USERNAME
+        value: catalogodb_cqst_user
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: XeOl1pXWm58iQfEM2aIJpK52YUW1fMxm
+      - key: SERVER_PORT
+        value: 8080
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  - type: pserv
+    name: postgres
+    env: docker
+    plan: free
+    ipAllowList: []
+    dockerCommand: ""
+    envVars:
+      - key: POSTGRES_DB
+        value: catalogodb
+      - key: POSTGRES_USER
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        value: ${DB_PASSWORD}
