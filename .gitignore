@@ -41,6 +41,13 @@ build/
 src/main/resources/application.yaml
 src/main/resources/application-dev.yaml
 src/main/resources/application-local.yaml
+src/main/resources/application-*.yaml
+!src/main/resources/application-prod.yaml
+
+### Database & Schema (Sensível) ###
+src/main/resources/schema-*.sql
+src/main/resources/data-*.sql
+*.sql
 
 ### IDE ###
 .DS_Store
