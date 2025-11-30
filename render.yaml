@@ -8,11 +8,17 @@ services:
     dockerCommand: ""
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://dpg-d4lriuc9c44c73fmeb30-a.oregon-postgres.render.com:5432/catalogodb_cqst
+        fromDatabase:
+          name: postgres
+          property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
-        value: catalogodb_cqst_user
+        fromDatabase:
+          name: postgres
+          property: user
       - key: SPRING_DATASOURCE_PASSWORD
-        value: XeOl1pXWm58iQfEM2aIJpK52YUW1fMxm
+        fromDatabase:
+          name: postgres
+          property: password
       - key: SERVER_PORT
         value: 8080
       - key: SPRING_PROFILES_ACTIVE
@@ -23,11 +29,4 @@ services:
     env: docker
     plan: free
     ipAllowList: []
-    dockerCommand: ""
-    envVars:
-      - key: POSTGRES_DB
-        value: catalogodb
-      - key: POSTGRES_USER
-        value: postgres
-      - key: POSTGRES_PASSWORD
-        value: ${DB_PASSWORD}
+
