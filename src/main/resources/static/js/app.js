@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (formAdicionar) configurarFormularioAdicionar(formAdicionar);
     }
 
+    if (path === '/editar') {
+        const formEditar = document.getElementById('form-editar-livro');
+        if (formEditar) configurarFormularioEditar(formEditar);
+    }
+
     if (path === '/' || path === '/index') {
         const containerRecentes = document.getElementById('recentes-container');
         if (containerRecentes) carregarLivrosRecentes(containerRecentes);
@@ -36,10 +41,27 @@ function configurarFormularioAdicionar(form) {
         
         console.log('Enviando para o back-end:', dadosComoObjeto);
 
-        // Simulação (por enquanto)
-        alert('Modo de simulação: Livro salvo!');
-        console.log('Dados que seriam enviados:', JSON.stringify(dadosComoObjeto));
-        window.location.href = '/lista';
+        try {
+            const response = await fetch('/api/livros', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dadosComoObjeto)
+            });
+
+            if (response.ok) {
+                const novoLivro = await response.json();
+                alert('✓ Livro adicionado com sucesso!');
+                window.location.href = '/lista';
+            } else {
+                alert('✗ Não foi possível salvar o livro. Tente novamente.');
+                console.error('Erro na resposta:', response);
+            }
+        } catch (error) {
+            alert('✗ Erro de conexão. Verifique sua internet.');
+            console.error('Erro ao enviar livro:', error);
+        }
     });
 }
 
@@ -49,22 +71,30 @@ async function carregarLivrosRecentes(container) {
     container.innerHTML = '<p>Carregando livros recentes...</p>';
 
     try {
-        // MOCK temporário
-        const livros = [
-            { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaLivro1.jpg', nota: 4 },
-            { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaLivro2.jpg', nota: 5 },
-            { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaLivro3.jpg', nota: 5 }
-        ];
+        const response = await fetch('/api/livros');
+        
+        if (!response.ok) {
+            throw new Error('Erro ao buscar livros do servidor');
+        }
+
+        const livros = await response.json();
         
         container.innerHTML = ''; 
-        livros.forEach(livro => {
+        
+        if (livros.length === 0) {
+            container.innerHTML = '<p>Nenhum livro adicionado ainda.</p>';
+            return;
+        }
+
+        // Mostrar apenas os 3 mais recentes
+        livros.slice(0, 3).forEach(livro => {
             const card = criarCardDeLivro(livro);
             container.appendChild(card);
         });
 
     } catch (error) {
         console.error('Erro ao carregar livros recentes:', error);
-        container.innerHTML = '<p style="color: red;">Erro ao carregar livros.</p>';
+        container.innerHTML = '<p style="color: red;">Erro ao carregar livros. Verifique a conexão com o banco de dados.</p>';
     }
 }
 
@@ -73,14 +103,21 @@ async function carregarListaCompleta(container) {
     container.innerHTML = '<p>Carregando lista completa...</p>';
 
     try {
-        const livros = [
-    { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaLivro1.jpg', nota: 4 },
-    { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaLivro2.jpg', nota: 5 },
-    { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaLivro3.jpg', nota: 5 }
-];
+        const response = await fetch('/api/livros');
+        
+        if (!response.ok) {
+            throw new Error('Erro ao buscar livros do servidor');
+        }
 
+        const livros = await response.json();
         
         container.innerHTML = ''; 
+        
+        if (livros.length === 0) {
+            container.innerHTML = '<p>Nenhum livro na sua biblioteca.</p>';
+            return;
+        }
+
         livros.forEach(livro => {
             const card = criarCardDeLivro(livro);
             container.appendChild(card);
@@ -88,7 +125,7 @@ async function carregarListaCompleta(container) {
 
     } catch (error) {
         console.error('Erro ao carregar lista completa:', error);
-        container.innerHTML = '<p style="color: red;">Erro ao carregar livros.</p>';
+        container.innerHTML = '<p style="color: red;">Erro ao carregar livros. Verifique a conexão com o banco de dados.</p>';
     }
 }
 
@@ -117,20 +154,25 @@ async function carregarDetalhesDoLivro(container) {
         return;
     }
 
-    const livros = [
-        { id: 1, titulo: 'O Problema dos 3 Corpos', autor: 'Cixin Liu', capaUrl: '/img/capaLivro1.jpg', nota: 4, resenha: 'Um épico da ficção científica moderna.' },
-        { id: 2, titulo: 'Duna', autor: 'Frank Herbert', capaUrl: '/img/capaLivro2.jpg', nota: 5, resenha: 'Um clássico imortal de política e ecologia.' },
-        { id: 3, titulo: 'The Witcher', autor: 'Andrzej Sapkowski', capaUrl: '/img/capaLivro3.jpg', nota: 5, resenha: 'Uma jornada fantástica cheia de magia e monstros.' }
-    ];
+    try {
+        const response = await fetch(`/api/livros/${id}`);
+        
+        if (!response.ok) {
+            if (response.status === 404) {
+                container.innerHTML = '<p style="color: red;">Livro não encontrado.</p>';
+            } else {
+                throw new Error('Erro ao buscar detalhes do livro');
+            }
+            return;
+        }
 
-    const livro = livros.find(l => l.id == id);
+        const livro = await response.json();
+        renderizarDetalhes(container, livro);
 
-    if (!livro) {
-        container.innerHTML = '<p style="color: red;">Livro não encontrado.</p>';
-        return;
+    } catch (error) {
+        console.error('Erro ao carregar detalhes do livro:', error);
+        container.innerHTML = '<p style="color: red;">Erro ao carregar detalhes. Verifique a conexão com o banco de dados.</p>';
     }
-
-    renderizarDetalhes(container, livro);
 }
 
 
@@ -165,8 +207,86 @@ function renderizarDetalhes(container, livro) {
     });
 }
 
+// --- LÓGICA PARA A PÁGINA DE EDITAR (editar.html) ---
+async function configurarFormularioEditar(form) {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    if (!id) {
+        alert('⚠️ Erro ao acessar o livro. Tente novamente.');
+        window.location.href = '/lista';
+        return;
+    }
+
+    // Carregar dados do livro
+    try {
+        const response = await fetch(`/api/livros/${id}`);
+        
+        if (!response.ok) {
+            throw new Error('Livro não encontrado');
+        }
+
+        const livro = await response.json();
+
+        // Preencher o formulário com os dados atuais
+        document.getElementById('titulo').value = livro.titulo;
+        document.getElementById('autor').value = livro.autor;
+        document.getElementById('capaUrl').value = livro.capaUrl || '';
+        document.getElementById('nota').value = livro.nota;
+        document.getElementById('resenha').value = livro.resenha || '';
+
+    } catch (error) {
+        alert('✗ Não foi possível carregar o livro. Tente novamente.');
+        console.error('Erro:', error);
+        window.location.href = '/lista';
+    }
+
+    // Configurar envio do formulário
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const dadosDoFormulario = new FormData(form);
+        const dadosComoObjeto = Object.fromEntries(dadosDoFormulario.entries());
+        dadosComoObjeto.nota = parseInt(dadosComoObjeto.nota, 10);
+
+        try {
+            const response = await fetch(`/api/livros/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dadosComoObjeto)
+            });
+
+            if (response.ok) {
+                alert('✓ Livro atualizado com sucesso!');
+                window.location.href = `/detalhes?id=${id}`;
+            } else {
+                alert('✗ Não foi possível atualizar o livro. Tente novamente.');
+                console.error('Erro na resposta:', response);
+            }
+        } catch (error) {
+            alert('✗ Erro de conexão. Verifique sua internet.');
+            console.error('Erro ao atualizar livro:', error);
+        }
+    });
+}
+
 async function excluirLivro(id) {
-    if (!confirm(`Tem certeza que deseja excluir este livro? (ID: ${id})`)) return;
-    alert(`Modo de simulação: Livro ${id} excluído!`);
-    window.location.href = '/lista';
+    if (!confirm(`Tem certeza que deseja excluir este livro?`)) return;
+    
+    try {
+        const response = await fetch(`/api/livros/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            alert('✓ Livro removido com sucesso!');
+            window.location.href = '/lista';
+        } else {
+            alert('✗ Não foi possível remover o livro. Tente novamente.');
+        }
+    } catch (error) {
+        alert('✗ Erro de conexão. Verifique sua internet.');
+        console.error('Erro ao excluir livro:', error);
+    }
 }

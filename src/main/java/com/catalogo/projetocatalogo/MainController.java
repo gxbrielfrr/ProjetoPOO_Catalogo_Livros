@@ -23,10 +23,15 @@ public class MainController {
         return "lista";
     }
 
-    
     @GetMapping("/detalhes")
-public String detalhes(@RequestParam("id") int id, Model model) {
-    model.addAttribute("id", id);
-    return "detalhes";
-}
+    public String detalhes(@RequestParam("id") int id, Model model) {
+        model.addAttribute("id", id);
+        return "detalhes";
+    }
+
+    @GetMapping("/editar")
+    public String editar(@RequestParam("id") int id, Model model) {
+        model.addAttribute("id", id);
+        return "editar";
+    }
 }
